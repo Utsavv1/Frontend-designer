@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Website Creator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        async function generateWebsite() {
+            const requirements = document.getElementById("requirements").value;
+            const response = await fetch("/generate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ requirements })
+            });
+            const data = await response.json();
+            document.getElementById("output").textContent = data.code;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Website Designer</h1>
+        <textarea id="requirements" placeholder="Enter website designing requirements..."></textarea>
+        <button onclick="generateWebsite()">Design</button>
+    </div> 
+    <pre id="output"> </pre>
+</body>
+</html>
